@@ -26,10 +26,11 @@ class DatabaseSeeder extends Seeder
         Role::create(['name'=>'admin']);
         Role::create(['name'=>'seller']);
 
-        User::created([
+        User::create([
             'name'=>'admin',
             'password'=>Hash::make('12345678'),
             'email'=>'admin@a.com',
+            'mobile_number'=>'09121234123',
             'role_id'=>Role::IS_ADMIN
         ]);
 
