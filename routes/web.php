@@ -29,3 +29,14 @@ Route::middleware('auth')->group(function () {
 });
 
 require __DIR__.'/auth.php';
+
+Route::group(['middleware'=>'auth'], function (){
+    Route::group([
+       'prefix'=>'admin',
+       'middleware' => 'is_admin',
+       'as' => 'admin.',
+       ], function (){
+            Route::get('restaurant_categories',[\App\Http\Controllers\admin\RestaurantCategoryController::class,'create'])
+                ->name('restaurant_categories.create');
+    });
+});
