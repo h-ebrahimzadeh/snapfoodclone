@@ -9,7 +9,13 @@
 
                     </a>
                 </div>
-
+                @if(auth()->user()->role_id==\App\Models\Role::IS_ADMIN)
+                    @can('create',\App\Models\RestaurantCategory::class)
+                    <x-nav-link  :href="route('admin.restaurant_categories.create')">
+                        {{ __('create restaurant category') }}
+                    </x-nav-link>
+                    @endcan
+                @endif
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">

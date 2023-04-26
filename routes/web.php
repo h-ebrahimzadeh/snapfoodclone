@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\admin\RestaurantCategoryController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -36,7 +37,9 @@ Route::group(['middleware'=>'auth'], function (){
        'middleware' => 'is_admin',
        'as' => 'admin.',
        ], function (){
-            Route::get('restaurant_categories',[\App\Http\Controllers\admin\RestaurantCategoryController::class,'create'])
+            Route::get('/restaurant_categories/create',[RestaurantCategoryController::class,'create'])
                 ->name('restaurant_categories.create');
+            Route::post('/restaurant_categories/store',[RestaurantCategoryController::class,'store'])
+                ->name('restaurant_categories.store');
     });
 });
