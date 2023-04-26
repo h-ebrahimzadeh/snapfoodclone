@@ -23,7 +23,8 @@ return new class extends Migration
                 ->on('coupon')->onUpdate('cascade')->onDelete('cascade');
             $table->foreignId('food_parties_id')->references('id')
                 ->on('food_parties')->onUpdate('cascade')->onDelete('cascade');
-
+            $table->foreignId('restaurant_id')->references('id')
+                ->on('restaurants')->onUpdate('cascade')->onDelete('cascade');
         });
     }
 
