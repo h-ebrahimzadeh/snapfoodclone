@@ -28,7 +28,7 @@ class RestaurantCategoryController extends Controller
         ]);
 
         RestaurantCategory::create($request->only('name'));
-        return redirect()->route('admin.restaurant_categories.create');
+        return redirect()->route('admin.restaurant_categories.index');
     }
 
     public function edit(RestaurantCategory $restaurantCategory)

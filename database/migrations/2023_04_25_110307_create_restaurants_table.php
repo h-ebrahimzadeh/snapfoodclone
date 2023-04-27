@@ -18,7 +18,7 @@ return new class extends Migration
                 ->on('restaurant_categories')->onDelete('cascade')->onUpdate('cascade');
             $table->string('phone_number');
             $table->string('address');
-            $table->unsignedInteger('account_number');
+            $table->string('account_number');
         });
     }
 

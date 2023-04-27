@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\admin\FoodCategoryController;
 use App\Http\Controllers\admin\RestaurantCategoryController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Seller\RestaurantController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -71,5 +73,29 @@ Route::group(['middleware'=>'auth'], function (){
 
             Route::delete('/food_categories/destroy/{foodCategory}',[FoodCategoryController::class,'destroy'])
             ->name('food_categories.destroy');
+    });
+});
+
+Route::group(['middleware'=>'auth'], function (){
+    Route::group([
+        'prefix'=>'seller',
+        'middleware' => 'is_seller',
+        'as' => 'seller.',
+    ], function (){
+
+        //seller routes
+
+        Route::get('/restaurant/information',[RestaurantController::class,'create'])->name('restaurant.create');
+        Route::post('/restaurant/information',[RestaurantController::class,'store'])->name('restaurant.store');
+        Route::get('/restaurant/index',[RestaurantController::class,'index'])->name('restaurant.index');
+
+
+        Route::get('/restaurant/edit/{restaurant}',[RestaurantController::class,'edit'])
+            ->name('restaurant.edit');
+        Route::put('/restaurant/update/{restaurant}',[RestaurantController::class,'update'])
+            ->name('restaurant.update');
+
+        Route::delete('/restaurant/destroy/{restaurant}',[RestaurantController::class,'destroy'])
+            ->name('restaurant.destroy');
     });
 });

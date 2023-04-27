@@ -11,4 +11,9 @@ class RestaurantCategory extends Model
     public $timestamps = false;
     protected $fillable=['name'];
 
+    public function restaurant()
+    {
+        return $this->hasOne(Restaurant::class);
+    }
+
 }

@@ -1,17 +1,17 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('create Restaurant category') }}
+            {{ __('create food category') }}
         </h2>
     </x-slot>
 
     <div class="py-12">
         <div class="w-1/2 mt-3 mx-auto">
-            <form action="{{route('admin.restaurant_categories.store')}}" method="post">
+            <form action="{{route('admin.food_categories.store')}}" method="post">
                 @csrf
 
                 <div class="mb-6">
-                    <h2 class="text-center text-blue-700 text-3xl"> create restaurant category</h2>
+                    <h2 class="text-center text-blue-700 text-3xl"> create food category</h2>
 
                     <div class="mb-6">
                         <label class="block mb-2 text-sm font-medium text-green-700 dark:text-green-500">name</label>

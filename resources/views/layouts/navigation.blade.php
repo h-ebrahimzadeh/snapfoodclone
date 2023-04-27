@@ -19,6 +19,29 @@
                     <x-nav-link  :href="route('admin.restaurant_categories.index')">
                         {{ __('index restaurant category') }}
                     </x-nav-link>
+
+                    @can('create',\App\Models\FoodCategory::class)
+                        <x-nav-link  :href="route('admin.food_categories.create')">
+                            {{ __('create food category') }}
+                        </x-nav-link>
+                    @endcan
+
+                    <x-nav-link  :href="route('admin.food_categories.index')">
+                        {{ __('food categories') }}
+                    </x-nav-link>
+
+                @endif
+
+                @if(auth()->user()->role_id==\App\Models\Role::IS_SELLER)
+                    @can('create',\App\Models\Restaurant::class)
+                        <x-nav-link  :href="route('seller.restaurant.create')">
+                            {{ __('create restaurant') }}
+                        </x-nav-link>
+                    @endcan
+
+                        <x-nav-link  :href="route('seller.restaurant.index')">
+                            {{ __('restaurants') }}
+                        </x-nav-link>
                 @endif
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">

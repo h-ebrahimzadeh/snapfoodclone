@@ -34,6 +34,14 @@ class DatabaseSeeder extends Seeder
             'role_id'=>Role::IS_ADMIN
         ]);
 
+        User::create([
+            'name'=>'seller',
+            'password'=>Hash::make('12345678'),
+            'email'=>'seller@a.com',
+            'mobile_number'=>'09121234121',
+            'role_id'=>Role::IS_SELLER
+        ]);
+
 
     }
 }
