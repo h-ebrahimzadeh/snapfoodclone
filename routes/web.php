@@ -37,6 +37,9 @@ Route::group(['middleware'=>'auth'], function (){
        'middleware' => 'is_admin',
        'as' => 'admin.',
        ], function (){
+
+            //Restaurant Category routes
+
             Route::get('/restaurant_categories/create',[RestaurantCategoryController::class,'create'])
                 ->name('restaurant_categories.create');
             Route::post('/restaurant_categories/store',[RestaurantCategoryController::class,'store'])
@@ -51,5 +54,22 @@ Route::group(['middleware'=>'auth'], function (){
 
             Route::delete('/restaurant_categories/destroy/{restaurantCategory}',[RestaurantCategoryController::class,'destroy'])
             ->name('restaurant_categories.destroy');
+
+            //Food Category routes
+
+            Route::get('/food_categories/create',[FoodCategoryController::class,'create'])
+                ->name('food_categories.create');
+            Route::post('/food_categories/store',[FoodCategoryController::class,'store'])
+                ->name('food_categories.store');
+            Route::get('/food_categories/index',[FoodCategoryController::class,'index'])
+                ->name('food_categories.index');
+
+            Route::get('/food_categories/edit/{foodCategory}',[FoodCategoryController::class,'edit'])
+                ->name('food_categories.edit');
+            Route::put('/food_categories/update/{foodCategory}',[FoodCategoryController::class,'update'])
+                ->name('food_categories.update');
+
+            Route::delete('/food_categories/destroy/{foodCategory}',[FoodCategoryController::class,'destroy'])
+            ->name('food_categories.destroy');
     });
 });
