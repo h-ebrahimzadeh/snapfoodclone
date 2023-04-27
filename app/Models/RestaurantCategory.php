@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class RestaurantCategory extends Model
 {
     use HasFactory;
-
+    public $timestamps = false;
     protected $fillable=['name'];
 
 }

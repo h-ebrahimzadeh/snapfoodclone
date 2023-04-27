@@ -30,15 +30,15 @@ class RestaurantCategoryPolicy
      */
     public function create(User $user): bool
     {
-        return $user->role_id==Role::IS_ADMIN;
+        return $user->role_id == Role::IS_ADMIN;
     }
 
     /**
      * Determine whether the user can update the model.
      */
-    public function update(User $user, RestaurantCategory $restaurantCategory): bool
+    public function update(User $user): bool
     {
-        return $user->role_id==Role::IS_ADMIN ;
+        return $user->role_id == Role::IS_ADMIN;
     }
 
     /**
@@ -46,7 +46,7 @@ class RestaurantCategoryPolicy
      */
     public function delete(User $user): bool
     {
-        return $user->role_id==Role::IS_ADMIN ;
+        return $user->role_id == Role::IS_ADMIN;
     }
 
     /**

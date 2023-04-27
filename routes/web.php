@@ -41,5 +41,15 @@ Route::group(['middleware'=>'auth'], function (){
                 ->name('restaurant_categories.create');
             Route::post('/restaurant_categories/store',[RestaurantCategoryController::class,'store'])
                 ->name('restaurant_categories.store');
+            Route::get('/restaurant_categories/index',[RestaurantCategoryController::class,'index'])
+                ->name('restaurant_categories.index');
+
+            Route::get('/restaurant_categories/edit/{restaurantCategory}',[RestaurantCategoryController::class,'edit'])
+                ->name('restaurant_categories.edit');
+            Route::put('/restaurant_categories/update/{restaurantCategory}',[RestaurantCategoryController::class,'update'])
+                ->name('restaurant_categories.update');
+
+            Route::delete('/restaurant_categories/destroy/{restaurantCategory}',[RestaurantCategoryController::class,'destroy'])
+            ->name('restaurant_categories.destroy');
     });
 });
