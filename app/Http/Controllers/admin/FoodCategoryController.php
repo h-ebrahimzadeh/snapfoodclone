@@ -41,6 +41,9 @@ class FoodCategoryController extends Controller
     public function update(FoodCategory $foodCategory,Request $request)
     {
         $this->authorize('update',FoodCategory::class);
+        $request->validate([
+            'name'=>['required','string','max:255']
+        ]);
         $foodCategory-> update($request->only('name'));
         return redirect()->route('admin.food_categories.index');
     }
