@@ -124,6 +124,8 @@ class FoodController extends Controller
     {
         $this->authorize('delete',Food::class);
         $food->delete();
+        $storage = Storage::disk('snap-food');
+        $storage->delete($food->image);
         return redirect()->route('seller.food.index');
 
     }
