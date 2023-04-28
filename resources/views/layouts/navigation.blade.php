@@ -52,6 +52,16 @@
                         <x-nav-link  :href="route('seller.food.index')">
                             {{ __('foods') }}
                         </x-nav-link>
+
+                        @can('create',\App\Models\Coupon::class)
+                            <x-nav-link  :href="route('seller.coupon.create')">
+                                {{ __('create coupon') }}
+                            </x-nav-link>
+                        @endcan
+
+                        <x-nav-link  :href="route('seller.coupon.index')">
+                            {{ __('coupons') }}
+                        </x-nav-link>
                 @endif
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">

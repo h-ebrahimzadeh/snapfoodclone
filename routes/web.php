@@ -3,6 +3,7 @@
 use App\Http\Controllers\admin\FoodCategoryController;
 use App\Http\Controllers\admin\RestaurantCategoryController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Seller\CouponController;
 use App\Http\Controllers\Seller\FoodController;
 use App\Http\Controllers\Seller\RestaurantController;
 use Illuminate\Support\Facades\Route;
@@ -113,6 +114,20 @@ Route::group(['middleware'=>'auth'], function (){
         Route::delete('/food/destroy/{food}',[FoodController::class,'destroy'])
             ->name('food.destroy');
 
+        //coupon routes
+        Route::get('/coupon/create',[CouponController::class,'create'])
+            ->name('coupon.create');
+        Route::post('/coupon/store',[CouponController::class,'store'])
+            ->name('coupon.store');
+        Route::get('/coupon/index',[CouponController::class,'index'])
+            ->name('coupon.index');
 
+        Route::get('/coupon/edit/{coupon}',[CouponController::class,'edit'])
+            ->name('coupon.edit');
+        Route::put('/coupon/update/{coupon}',[CouponController::class,'update'])
+            ->name('coupon.update');
+
+        Route::delete('/coupon/destroy/{coupon}',[CouponController::class,'destroy'])
+            ->name('coupon.destroy');
     });
 });
