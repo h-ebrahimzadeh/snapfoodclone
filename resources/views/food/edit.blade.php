@@ -9,7 +9,7 @@
         <div class="w-1/2 mt-3 mx-auto">
             <form action="{{route('seller.food.update',$food->id)}}" method="post" enctype="multipart/form-data">
                 @csrf
-
+                @method('put')
                 <div class="mb-6">
                     <label class="block mb-2 text-sm font-medium text-green-700 dark:text-green-500">name</label>
                     <input type="text"

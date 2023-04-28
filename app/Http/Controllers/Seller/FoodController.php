@@ -50,12 +50,16 @@ class FoodController extends Controller
             'restaurant'=>'required',
 
         ]);
-        $storage = Storage::disk('snap-food');
+        if (!empty($request->image))
+        {
+            $storage = Storage::disk('snap-food');
 
-        $path = date('Y/m/d');
-        $imageName = time().'-'.'foodImg'.'.'.$request->image->extension();
+            $path = date('Y/m/d');
+            $imageName = time().'-'.'foodImg'.'.'.$request->image->extension();
 
-        $path_image=$storage->putFileAs("images/$path",$request->image,$imageName);
+            $path_image=$storage->putFileAs("images/$path",$request->image,$imageName);
+        }
+
 
         $food=[
             'name'=>$request->name,
@@ -87,28 +91,40 @@ class FoodController extends Controller
         $this->authorize('update',Food::class);
         $request->validate([
             'name'=>['required','string','max:255'],
-            'restaurant_category'=>['required'],
-            'phone_number'=>['required','regex:/^0\d{2,3}-\d{8}$/'],
-            'address'=>'required',
-            'account_number'=>'required|size:16'
+            'food_category'=>['required'],
+            'materials'=>['string'],
+            'image'=>'mimes:jpg,jpeg,png',
+            'price'=>'required',
+            'restaurant'=>'required',
+
         ]);
+        $storage = Storage::disk('snap-food');
+
+        $path = date('Y/m/d');
+        $imageName = time().'-'.'foodImg'.'.'.$request->image->extension();
+
+        $path_image=$storage->putFileAs("images/$path",$request->image,$imageName);
 
         $placeholder=[
-            'name'=> $request->name,
-            'restaurant_categories_id'=>$request->restaurant_category,
-            'phone_number'=>$request->phone_number,
-            'address'=>$request->address,
-            'account_number'=>$request->account_number
+            'name'=>$request->name,
+            'food_categories_id'=>$request->food_category,
+            'materials'=>$request->materials ?? '',
+            'image'=>$path_image ?? '',
+            'price'=>$request->price,
+            'coupon_id'=>$request->coupon,
+            'food_parties_id'=>$request->food_party ,
+            'restaurant_id'=>$request->restaurant,
+
         ];
         $food-> update($placeholder);
-        return redirect()->route('seller.restaurant.index');
+        return redirect()->route('seller.food.index');
     }
 
     public function destroy(Food $food)
     {
         $this->authorize('delete',Food::class);
         $food->delete();
-        return redirect()->route('seller.restaurant.index');
+        return redirect()->route('seller.food.index');
 
     }
 }

@@ -52,7 +52,7 @@
                         {{--                        </td>--}}
                         <td class="px-6 py-3 text-center">
                             @can('update',$food)
-                                <a href="{{route('seller.restaurant.edit',$food->id)}}" class="mx-2">
+                                <a href="{{route('seller.food.edit',$food->id)}}" class="mx-2">
                                     <button type="submit"
                                             class="bg-transparent hover:bg-green-500 text-green-700 font-semibold hover:text-white py-2 px-4 m-1 border border-green-500 hover:border-transparent rounded">
                                         Edit
@@ -62,7 +62,7 @@
                         </td>
                         <td class="px-6 py-3 text-center">
                             @can('delete',$food)
-                                <form action="{{route('seller.restaurant.destroy',$food->id)}}"
+                                <form action="{{route('seller.food.destroy',$food->id)}}"
                                       method="post">
                                     @csrf
                                     @method('delete')
