@@ -16,11 +16,11 @@ return new class extends Migration
             $table->string('name');
             $table->foreignId('food_categories_id')->references('id')
                 ->on('food_categories')->onUpdate('cascade')->onDelete('cascade');
-            $table->longText('marerials')->nullable();
+            $table->longText('materials')->nullable();
             $table->text('image')->nullable();
             $table->integer('price');
             $table->foreignId('coupon_id')->references('id')
-                ->on('coupon')->onUpdate('cascade')->onDelete('cascade');
+                ->on('coupons')->onUpdate('cascade')->onDelete('cascade');
             $table->foreignId('food_parties_id')->references('id')
                 ->on('food_parties')->onUpdate('cascade')->onDelete('cascade');
             $table->foreignId('restaurant_id')->references('id')

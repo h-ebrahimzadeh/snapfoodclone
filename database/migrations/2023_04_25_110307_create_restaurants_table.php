@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('phone_number');
             $table->string('address');
             $table->string('account_number');
+            $table->foreignId('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 

@@ -3,6 +3,7 @@
 use App\Http\Controllers\admin\FoodCategoryController;
 use App\Http\Controllers\admin\RestaurantCategoryController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Seller\FoodController;
 use App\Http\Controllers\Seller\RestaurantController;
 use Illuminate\Support\Facades\Route;
 
@@ -97,5 +98,21 @@ Route::group(['middleware'=>'auth'], function (){
 
         Route::delete('/restaurant/destroy/{restaurant}',[RestaurantController::class,'destroy'])
             ->name('restaurant.destroy');
+
+        //food routes
+        Route::get('/food/create',[FoodController::class,'create'])->name('food.create');
+        Route::post('/food/store',[FoodController::class,'store'])->name('food.store');
+        Route::get('/food/index',[FoodController::class,'index'])->name('food.index');
+
+
+        Route::get('/food/edit/{food}',[FoodController::class,'edit'])
+            ->name('food.edit');
+        Route::put('/food/update/{food}',[FoodController::class,'update'])
+            ->name('food.update');
+
+        Route::delete('/food/destroy/{food}',[FoodController::class,'destroy'])
+            ->name('food.destroy');
+
+
     });
 });

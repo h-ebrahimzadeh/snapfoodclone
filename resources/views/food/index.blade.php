@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Restaurants') }}
+            {{ __('Foods') }}
         </h2>
     </x-slot>
     @php $i=1 @endphp
@@ -14,10 +14,14 @@
                     <th class="px-6 py-3 text-center rounded-l-lg">#</th>
 
                     <th class="px-6 py-3 text-center rounded-l-lg">name</th>
+                    <th class="px-6 py-3 text-center rounded-l-lg">food category</th>
+                    <th class="px-6 py-3 text-center rounded-l-lg">materials</th>
+                    <th class="px-6 py-3 text-center rounded-l-lg">image</th>
+                    <th class="px-6 py-3 text-center rounded-l-lg">price</th>
+                    <th class="px-6 py-3 text-center rounded-l-lg">coupon</th>
+                    <th class="px-6 py-3 text-center rounded-l-lg">food party</th>
+                    <th class="px-6 py-3 text-center rounded-l-lg">restaurant</th>
                     <th class="px-6 py-3 text-center rounded-l-lg">restaurant category</th>
-                    <th class="px-6 py-3 text-center rounded-l-lg">phone number</th>
-                    <th class="px-6 py-3 text-center rounded-l-lg">address</th>
-                    <th class="px-6 py-3 text-center rounded-l-lg">account number</th>
 
                     <th class="px-6 py-3 text-center"></th>
                     <th class="px-6 py-3 text-center"></th>
@@ -27,16 +31,16 @@
                 </thead>
                 <tbody>
                 {{--    <a href="{{route('books.create')}}">sada</a>--}}
-                @foreach($restaurants as $restaurant)
+                @foreach($foods as $food)
                     <tr class="border-b even:bg-blue-200">
                         <td class="px-6 py-3 text-center">{{$i++}}</td>
-                        <td class="px-6 py-3 text-center">{{$restaurant->name}}</td>
+                        <td class="px-6 py-3 text-center">{{$food->name}}</td>
 
-                        <td class="px-6 py-3 text-center">{{$restaurant->restaurantCategory->name}}</td>
-                        <td class="px-6 py-3 text-center">{{$restaurant->phone_number}}</td>
-                        <td class="px-6 py-3 text-center">{{$restaurant->address}}</td>
-                        <td class="px-6 py-3 text-center">{{$restaurant->account_number}}</td>
-
+                        <td class="px-6 py-3 text-center">{{$food->foodCategory->name}}</td>
+                        <td class="px-6 py-3 text-center">{{$food->materials}}</td>
+                        <td class="px-6 py-3 text-center"><img src="{{$food->profile_image_url}}"></td>
+                        <td class="px-6 py-3 text-center">{{$food->price}}</td>
+                        <td class="px-6 py-3 text-center">{{$food->coupon->code}}</td> <td class="px-6 py-3 text-center">{{$food->foodParty->name}}</td> <td class="px-6 py-3 text-center">{{$food->restaurant->name}}</td>
 
                         {{--                        <td class="px-6 py-3 text-center">--}}
                         {{--                            <a href="" class="mx-2">--}}
@@ -47,8 +51,8 @@
                         {{--                            </a>--}}
                         {{--                        </td>--}}
                         <td class="px-6 py-3 text-center">
-                            @can('update',$restaurant)
-                                <a href="{{route('seller.restaurant.edit',$restaurant->id)}}" class="mx-2">
+                            @can('update',$food)
+                                <a href="{{route('seller.restaurant.edit',$food->id)}}" class="mx-2">
                                     <button type="submit"
                                             class="bg-transparent hover:bg-green-500 text-green-700 font-semibold hover:text-white py-2 px-4 m-1 border border-green-500 hover:border-transparent rounded">
                                         Edit
@@ -57,8 +61,8 @@
                             @endcan
                         </td>
                         <td class="px-6 py-3 text-center">
-                            @can('delete',$restaurant)
-                                <form action="{{route('seller.restaurant.destroy',$restaurant->id)}}"
+                            @can('delete',$food)
+                                <form action="{{route('seller.restaurant.destroy',$food->id)}}"
                                       method="post">
                                     @csrf
                                     @method('delete')

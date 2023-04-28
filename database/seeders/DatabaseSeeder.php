@@ -3,6 +3,8 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Coupon;
+use App\Models\FoodParty;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Database\Seeder;
@@ -41,6 +43,9 @@ class DatabaseSeeder extends Seeder
             'mobile_number'=>'09121234121',
             'role_id'=>Role::IS_SELLER
         ]);
+
+        Coupon::create(['code'=>'none','ends_at'=>date('Y/m/d'),'discount'=>0,'updated_at'=>date('Y/m/d')]);
+        FoodParty::create(['name'=>'none']);
 
 
     }

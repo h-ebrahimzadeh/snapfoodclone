@@ -11,7 +11,7 @@ class RestaurantController extends Controller
 {
     public function index()
     {
-        $restaurants=Restaurant::all();
+        $restaurants=Restaurant::where('user_id',auth()->id())->get();
         return view('restaurant.index',compact('restaurants'));
     }
     public function create()
@@ -31,7 +31,8 @@ class RestaurantController extends Controller
             'restaurant_category'=>['required'],
             'phone_number'=>['required','regex:/^0\d{2,3}-\d{8}$/'],
             'address'=>'required',
-            'account_number'=>'required|size:16'
+            'account_number'=>'required|size:16',
+
         ]);
 
         $restaurant=[
@@ -39,7 +40,8 @@ class RestaurantController extends Controller
             'restaurant_categories_id'=>$request->restaurant_category,
             'phone_number'=>$request->phone_number,
             'address'=>$request->address,
-            'account_number'=>$request->account_number
+            'account_number'=>$request->account_number,
+            'user_id'=>auth()->id()
         ];
         Restaurant::create($restaurant);
         return redirect()->route('seller.restaurant.index');
@@ -68,7 +70,8 @@ class RestaurantController extends Controller
             'restaurant_categories_id'=>$request->restaurant_category,
             'phone_number'=>$request->phone_number,
             'address'=>$request->address,
-            'account_number'=>$request->account_number
+            'account_number'=>$request->account_number,
+            'user_id'=>auth()->id()
         ];
         $restaurant-> update($placeholder);
         return redirect()->route('seller.restaurant.index');

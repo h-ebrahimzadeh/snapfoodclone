@@ -42,6 +42,16 @@
                         <x-nav-link  :href="route('seller.restaurant.index')">
                             {{ __('restaurants') }}
                         </x-nav-link>
+
+                        @can('create',\App\Models\Food::class)
+                            <x-nav-link  :href="route('seller.food.create')">
+                                {{ __('create food') }}
+                            </x-nav-link>
+                        @endcan
+
+                        <x-nav-link  :href="route('seller.food.index')">
+                            {{ __('foods') }}
+                        </x-nav-link>
                 @endif
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
