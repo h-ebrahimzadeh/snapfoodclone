@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -25,8 +26,9 @@ class AuthController extends Controller
         $user = User::create([
             'name' => $fields['name'],
             'email' => $fields['email'],
-            'phone' => $fields['mobile_number'],
+            'mobile_number' => $fields['mobile_number'],
             'password' => bcrypt($fields['password']),
+            'role_id' => Role::IS_USER
         ]);
 
         $token = $user->createToken('myapptoken')->plainTextToken;
