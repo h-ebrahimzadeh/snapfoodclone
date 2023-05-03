@@ -14,7 +14,10 @@ return new class extends Migration
         Schema::create('addresses', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->
+            $table->string('address');
+            $table->string('latitude');
+            $table->string('longitude');
+            $table->foreignId('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }
