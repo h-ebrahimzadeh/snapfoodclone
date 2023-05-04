@@ -26,12 +26,12 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('/addresses', [AddressUserController::class,'index']);
     Route::post('/address/store', [AddressUserController::class,'store']);
-    Route::put('/address/update/{addressUser}', [AddressUserController::class,'update']);
+    Route::put('/address/update/{id}', [AddressUserController::class,'update']);
 
     Route::put('/users/update/{user}',[UserController::class,'update']);
 
-    Route::get('/restaurants/addresses',[RestaurantController::class,'index']);
-    Route::get('/restaurants/address/{restaurant}',[RestaurantController::class,'show']);
+    Route::get('/restaurants',[RestaurantController::class,'index']);
+    Route::get('/restaurant/{restaurant}',[RestaurantController::class,'show']);
 
 });
 

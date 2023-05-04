@@ -40,7 +40,8 @@ class UserController extends Controller
 
 
         $user->update($validator->validated());
+//        return response()->noContent();
+        return response()->json(['msg'=>'current user updated successfully']);
 
-        return response()->noContent();
     }
 }

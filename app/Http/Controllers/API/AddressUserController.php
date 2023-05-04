@@ -60,8 +60,10 @@ class AddressUserController extends Controller
         return response()->json(['user Addresses:', $addresses]);
     }
 
-    public function update(Request $request, AddressUser $addressUser)
+    public function update(Request $request, $id)
     {
+
+        $addressUser=AddressUser::find($id);
         $validator = Validator::make($request->all(), [
             'title' => 'nullable',
             'address' => ['nullable', Rule::unique('addresses_user', 'address')->ignoreModel($addressUser)]

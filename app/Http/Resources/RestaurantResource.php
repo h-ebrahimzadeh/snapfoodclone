@@ -16,12 +16,14 @@ class RestaurantResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'name'=>$this->name,
-            'phone_number'=>$this->phone_number,
-            'address'=>[
-               'address'=> $this->addresses()->address,
-                'latitude'=>$this->addresses->address
-            ]
+            'name' => $this->name,
+            'phone_number' => $this->phone_number,
+            'address' => [
+                'address' => $this->address,
+                'latitude' => $this->latitude,
+                'longitude' => $this->longitude,
+            ],
+            'account number'=>$this->account_number
         ];
     }
 }
