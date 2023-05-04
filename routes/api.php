@@ -1,7 +1,8 @@
 <?php
 
-use App\Http\Controllers\API\AddressController;
+use App\Http\Controllers\API\AddressUserController;
 use App\Http\Controllers\API\AuthController;
+use App\Http\Controllers\API\RestaurantController;
 use App\Http\Controllers\Api\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -23,8 +24,14 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::middleware('auth:sanctum')->group(function () {
-    Route::post('/address/store', [AddressController::class,'store']);
+    Route::get('/addresses', [AddressUserController::class,'index']);
+    Route::post('/address/store', [AddressUserController::class,'store']);
+    Route::put('/address/update/{addressUser}', [AddressUserController::class,'update']);
+
     Route::put('/users/update/{user}',[UserController::class,'update']);
+
+    Route::get('/restaurants/addresses',[RestaurantController::class,'index']);
+    Route::get('/restaurants/address/{restaurant}',[RestaurantController::class,'show']);
 
 });
 

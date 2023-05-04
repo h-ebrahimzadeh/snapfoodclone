@@ -24,4 +24,9 @@ class Restaurant extends Model
     {
         return $this->hasOne(RestaurantCategory::class,'id','restaurant_categories_id');
     }
+
+    public function addresses()
+    {
+        return $this->hasMany(AddressRestaurant::class, 'restaurant_id', 'id');
+    }
 }
