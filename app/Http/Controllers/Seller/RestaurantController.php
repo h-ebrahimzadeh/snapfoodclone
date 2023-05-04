@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Seller;
 
 use App\Http\Controllers\Controller;
+use App\Models\AddressRestaurant;
 use App\Models\Restaurant;
 use App\Models\RestaurantCategory;
 use Illuminate\Http\Request;
@@ -24,6 +25,7 @@ class RestaurantController extends Controller
 
     public function store(Request $request)
     {
+
         $this->authorize('create',Restaurant::class);
 
         $request->validate([
@@ -31,7 +33,10 @@ class RestaurantController extends Controller
             'restaurant_category'=>['required'],
             'phone_number'=>['required','regex:/^0\d{2,3}-\d{8}$/'],
             'address'=>'required',
+
             'account_number'=>'required|size:16',
+//            'lat'=>'required',
+//            'lng'=>'required'
 
         ]);
 
@@ -39,11 +44,20 @@ class RestaurantController extends Controller
             'name'=> $request->name,
             'restaurant_categories_id'=>$request->restaurant_category,
             'phone_number'=>$request->phone_number,
-            'address'=>$request->address,
             'account_number'=>$request->account_number,
-            'user_id'=>auth()->id()
+            'user_id'=>auth()->id(),
+            'address'=>$request->address,
+            'latitude'=>$request->lng,
+            'longitude'=>$request->lat
+        ];
+
+        $address=[
+            'address'=>$request->address,
+            'title'=>$request->address_title
         ];
         Restaurant::create($restaurant);
+
+
         return redirect()->route('seller.restaurant.index');
     }
 

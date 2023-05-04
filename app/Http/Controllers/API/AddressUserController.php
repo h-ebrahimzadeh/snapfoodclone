@@ -18,7 +18,9 @@ class AddressUserController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'title' => 'required',
-            'address' => ['required', 'unique:addresses_user,address']
+            'address' => ['required', 'unique:addresses_user,address'],
+            'latitude'=>'required',
+            'longitude'=>'required'
         ]);
 
         if ($validator->fails()) {
@@ -33,16 +35,23 @@ class AddressUserController extends Controller
         ]);
         $location = json_decode($response);
 
+        if ($request->latitude==$location->location->x && $request->longitude==$location->location->y)
+        {
+            $address = AddressUser::create([
+                'title' => $request->title,
+                'address' => $request->address,
+                'latitude' => $location->location->x,
+                'longitude' => $location->location->y,
+                'user_id' => auth()->id()
+            ]);
 
-        $address = AddressUser::create([
-            'title' => $request->title,
-            'address' => $request->address,
-            'latitude' => $location->location->x,
-            'longitude' => $location->location->y,
-            'user_id' => auth()->id()
-        ]);
+            return response()->json(['address created successfully.', new AddressResource($address)]);
+        }
+        else
+        {
+            return response()->json(['error-address created unsuccessfully.']);
+        }
 
-        return response()->json(['address created successfully.', new AddressResource($address)]);
     }
 
     public function index()

@@ -17,7 +17,9 @@ class Restaurant extends Model
         'phone_number',
         'address',
         'account_number',
-        'user_id'
+        'user_id',
+        'latitude',
+        'longitude'
     ];
 
     public function restaurantCategory()

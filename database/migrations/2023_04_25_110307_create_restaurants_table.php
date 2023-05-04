@@ -18,6 +18,9 @@ return new class extends Migration
                 ->on('restaurant_categories')->onDelete('cascade')->onUpdate('cascade');
             $table->string('phone_number');
             $table->string('address');
+            $table->string('latitude');
+            $table->string('longitude');
+
             $table->string('account_number');
             $table->foreignId('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
         });

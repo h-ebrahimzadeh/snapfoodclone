@@ -11,6 +11,15 @@
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
 
+{{--        neshan cdn--}}
+        <link href="https://static.neshan.org/sdk/openlayers/5.3.0/ol.css" rel="stylesheet" type="text/css">
+        <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=requestAnimationFrame,Element.prototype.classList,URL"></script>
+        <script src="https://static.neshan.org/sdk/openlayers/5.3.0/ol.js" type="text/javascript"></script>
+
+        <link href="https://static.neshan.org/sdk/leaflet/1.4.0/leaflet.css" rel="stylesheet" type="text/css">
+        <script src="https://static.neshan.org/sdk/leaflet/1.4.0/leaflet.js" type="text/javascript">
+
+
         <!-- Scripts -->
         @vite(['resources/css/flowbite.css','resources/css/flowbite.js','resources/css/app.css', 'resources/js/app.js'])
 
