@@ -26,10 +26,11 @@ class UserController extends Controller
 
     public function update(User $user, Request $request)
     {
-        dd($request->all());
+//        dd($request->all());
         $validator = Validator::make($request->all(), [
-            'name' => 'required|string|max:255',
-            'email' => 'required|email'
+            'name' => ['nullable', 'string', 'max:255'],
+            'email' => ['nullable', 'string', 'email', 'max:255', 'unique:' . User::class],
+            'mobile_number' => ['nullable', 'regex:/^(09\d{9})$/', 'size:11', 'unique:users,mobile_number']
 
         ]);
 
@@ -37,10 +38,12 @@ class UserController extends Controller
             return response()->json($validator->errors());
         }
 
-        $user->name = $request->name;
-        $user->email = $request->email;
-        $user->save();
+//dd($validator->validated());
+//        $user->name = $request->name;
+//        $user->email = $request->email;
+//        $user->mobile_number=$request->mobile_number;
+        $user->update($validator->validated());
 
-        return response()->json(['User updated successfully.', new UserResource($user)]);
+        return response()->noContent();
     }
 }
