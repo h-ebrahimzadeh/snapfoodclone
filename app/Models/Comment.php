@@ -16,7 +16,7 @@ class Comment extends Model
         'content',
         'score',
         'user_id',
-        'name'
+        'title'
 
     ];
 

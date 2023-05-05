@@ -20,7 +20,7 @@ return new class extends Migration
             $table->bigInteger('restaurant_id')->nullable();
             $table->bigInteger('cart_id')->nullable();
             $table->unsignedInteger('score');
-            $table->longText('answer');
+            $table->longText('answer')->nullable();
         });
     }
 

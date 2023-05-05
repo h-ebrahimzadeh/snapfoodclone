@@ -16,7 +16,7 @@ class CommentController extends Controller
             'cart_id' => 'required',
             'score' => 'required',
             'content' => 'required',
-            'name'=>'required'
+            'title'=>'required'
         ]);
 
         if ($validator->fails()) {
@@ -29,7 +29,7 @@ class CommentController extends Controller
 
             'user_id' => auth()->id(),
             'content' => $request->get('content'),
-            'name'=>$request->name
+            'title'=>$request->title
         ];
         $comment = Comment::create($placeholder);
 
