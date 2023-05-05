@@ -14,13 +14,11 @@ return new class extends Migration
         Schema::create('comments', function (Blueprint $table) {
             $table->id();
             $table->longText('content');
-            $table->foreignId('user_id')
-                ->references('id')->on('users')->onDelete('cascade')
-                ->onUpdate('cascade');
-            $table->string('name');
-            $table->bigInteger('food_id');
-            $table->bigInteger('restaurant_id');
-            $table->bigInteger('cart_id');
+            $table->bigInteger('user_id');
+            $table->string('title');
+            $table->bigInteger('food_id')->nullable();
+            $table->bigInteger('restaurant_id')->nullable();
+            $table->bigInteger('cart_id')->nullable();
             $table->unsignedInteger('score');
             $table->longText('answer');
         });

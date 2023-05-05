@@ -26,7 +26,9 @@ class UserController extends Controller
 
     public function update(User $user, Request $request)
     {
-
+        if (auth()->id() != $user->id) {
+            return response()->json(['msg' => 'current user do not permission']);
+        }
         $validator = Validator::make($request->all(), [
             'name' => ['nullable', 'string', 'max:255'],
             'email' => ['nullable', 'string', 'email', 'max:255', 'unique:' . User::class],
@@ -41,7 +43,7 @@ class UserController extends Controller
 
         $user->update($validator->validated());
 //        return response()->noContent();
-        return response()->json(['msg'=>'current user updated successfully']);
+        return response()->json(['msg' => 'current user updated successfully']);
 
     }
 }
