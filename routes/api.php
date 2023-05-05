@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\API\AddressUserController;
 use App\Http\Controllers\API\AuthController;
+use App\Http\Controllers\Api\FoodController;
 use App\Http\Controllers\API\RestaurantController;
 use App\Http\Controllers\Api\UserController;
 use Illuminate\Http\Request;
@@ -32,6 +33,9 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::get('/restaurants',[RestaurantController::class,'index']);
     Route::get('/restaurant/{restaurant}',[RestaurantController::class,'show']);
+
+    Route::get('/foods',[FoodController::class,'index']);
+
 
 });
 
