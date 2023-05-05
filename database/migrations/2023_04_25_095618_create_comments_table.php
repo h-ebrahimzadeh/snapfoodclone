@@ -17,6 +17,12 @@ return new class extends Migration
             $table->foreignId('user_id')
                 ->references('id')->on('users')->onDelete('cascade')
                 ->onUpdate('cascade');
+            $table->string('name');
+            $table->bigInteger('food_id');
+            $table->bigInteger('restaurant_id');
+            $table->bigInteger('cart_id');
+            $table->unsignedInteger('score');
+            $table->longText('answer');
         });
     }
 

@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\API\AddressUserController;
 use App\Http\Controllers\API\AuthController;
+use App\Http\Controllers\API\CartController;
+use App\Http\Controllers\API\CommentController;
 use App\Http\Controllers\Api\FoodController;
 use App\Http\Controllers\API\RestaurantController;
 use App\Http\Controllers\Api\UserController;
@@ -34,7 +36,25 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/restaurants',[RestaurantController::class,'index']);
     Route::get('/restaurant/{restaurant}',[RestaurantController::class,'show']);
 
+    //foods
     Route::get('/foods',[FoodController::class,'index']);
+    Route::get('/restaurants/{restaurant}/foods',[FoodController::class,'show']);
+    Route::get('/foods/{food}',[FoodController::class,'show']);
+    Route::get('/restaurants/{restaurant}/foods',[FoodController::class,'showRestaurantFoods']);
+
+
+    //carts
+    Route::post('/carts/add', [CartController::class,'store']);
+    Route::get('/carts',[CartController::class,'index']);
+    Route::put('/carts/update/{cart}', [CartController::class,'update']);
+    Route::get('/carts/{cart}',[CartController::class,'show']);
+
+    //comment
+    Route::post('/comments/add', [CommentController::class,'store']);
+
+
+    //logout
+    Route::post('/logout',[AuthController::class,'logout']);
 
 
 });
@@ -42,4 +62,5 @@ Route::middleware('auth:sanctum')->group(function () {
 Route::post('/register',[AuthController::class,'register']);
 
 Route::post('/login',[AuthController::class,'login']);
+
 

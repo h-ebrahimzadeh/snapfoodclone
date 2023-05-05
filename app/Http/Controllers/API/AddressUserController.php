@@ -35,22 +35,22 @@ class AddressUserController extends Controller
         ]);
         $location = json_decode($response);
 
-        if ($request->latitude==$location->location->x && $request->longitude==$location->location->y)
+        if ($request->latitude!=$location->location->x && $request->longitude!=$location->location->y)
         {
-            $address = AddressUser::create([
-                'title' => $request->title,
-                'address' => $request->address,
-                'latitude' => $location->location->x,
-                'longitude' => $location->location->y,
-                'user_id' => auth()->id()
-            ]);
 
-            return response()->json(['address created successfully.', new AddressResource($address)]);
-        }
-        else
-        {
             return response()->json(['error-address created unsuccessfully.']);
+
         }
+        $address = AddressUser::create([
+            'title' => $request->title,
+            'address' => $request->address,
+            'latitude' => $location->location->x,
+            'longitude' => $location->location->y,
+            'user_id' => auth()->id()
+        ]);
+
+        return response()->json(['address created successfully.', new AddressResource($address)]);
+
 
     }
 
