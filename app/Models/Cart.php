@@ -11,7 +11,8 @@ class Cart extends Model
 
     protected $fillable=[
         'food_id',
-        'count'
+        'count',
+        'user_id'
     ];
 
     public function foods()

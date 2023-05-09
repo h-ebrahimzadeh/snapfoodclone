@@ -30,7 +30,13 @@ class CartController extends Controller
             return response()->json($validator->errors());
         }
 
-            $food = Cart::create($validator->validated());
+        $placeholder=[
+            'food_id'=>$request->food_id,
+            'count'=>$request->count,
+            'user_id'=>auth()->id()
+        ];
+
+            $food = Cart::create($placeholder);
 
             return response()->json(['food created successfully.', new CartResource($food)]);
     }

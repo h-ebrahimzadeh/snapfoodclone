@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\admin\FoodCategoryController;
 use App\Http\Controllers\admin\RestaurantCategoryController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Seller\CouponController;
 use App\Http\Controllers\Seller\FoodController;
@@ -129,5 +130,9 @@ Route::group(['middleware'=>'auth'], function (){
 
         Route::delete('/coupon/destroy/{coupon}',[CouponController::class,'destroy'])
             ->name('coupon.destroy');
+
+        //cart
+        Route::get('/cart',[CartController::class,'index'])->name('cart.index');
+
     });
 });
