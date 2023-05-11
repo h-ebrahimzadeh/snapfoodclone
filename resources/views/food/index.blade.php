@@ -81,6 +81,9 @@
 
                 </tbody>
             </table>
+            <div class="w-1/6 mx-auto ">
+                {{ $foods->links() }}
+            </div>
         </div>
 
     </div>

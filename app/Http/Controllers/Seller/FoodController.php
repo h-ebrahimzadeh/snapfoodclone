@@ -16,7 +16,7 @@ class FoodController extends Controller
 {
     public function index()
     {
-        $foods=Food::all();
+        $foods=Food::paginate(1);
         return view('food.index',compact('foods'));
     }
     public function create()

@@ -12,7 +12,7 @@ class FoodController extends Controller
 {
     public function index()
     {
-        $foods=Food::all();
+        $foods=Food:: all();
 
         return response()->json(FoodResource::collection($foods));
     }
