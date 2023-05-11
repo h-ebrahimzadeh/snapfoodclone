@@ -33,12 +33,13 @@ class CartController extends Controller
         $placeholder=[
             'food_id'=>$request->food_id,
             'count'=>$request->count,
-            'user_id'=>auth()->id()
+            'user_id'=>auth()->id(),
+            'status'=>Cart::PENDING
         ];
 
             $food = Cart::create($placeholder);
 
-            return response()->json(['food created successfully.', new CartResource($food)]);
+            return response()->json(['cart created successfully.', new CartResource($food)]);
     }
 
     public function index()
@@ -56,14 +57,23 @@ class CartController extends Controller
             'food_id' => ['nullable'],
             'count' => ['nullable'],
 
+
         ]);
 
         if ($validator->fails()) {
             return response()->json($validator->errors());
         }
 
+        $placeholder=[
+            'food_id'=>$request->food_id,
+            'count'=>$request->count,
+            'user_id'=>auth()->id(),
+            'status'=>Cart::PENDING
 
-        $cart->update($validator->validated());
+        ];
+
+
+        $cart->update($placeholder);
 //        return response()->noContent();
         return response()->json(['msg'=>'current cart updated successfully']);
     }

@@ -51,4 +51,9 @@ class Food extends Model
         return Storage::disk('snap-food')->url($this->image);
     }
 
+    public function cart()
+    {
+        return $this->hasManyThrough(Cart::class,Restaurant::class);
+    }
+
 }

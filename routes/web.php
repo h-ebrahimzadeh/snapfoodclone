@@ -2,8 +2,8 @@
 
 use App\Http\Controllers\admin\FoodCategoryController;
 use App\Http\Controllers\admin\RestaurantCategoryController;
-use App\Http\Controllers\CartController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Seller\CartController;
 use App\Http\Controllers\Seller\CouponController;
 use App\Http\Controllers\Seller\FoodController;
 use App\Http\Controllers\Seller\RestaurantController;
@@ -132,7 +132,11 @@ Route::group(['middleware'=>'auth'], function (){
             ->name('coupon.destroy');
 
         //cart
-        Route::get('/cart',[CartController::class,'index'])->name('cart.index');
+        Route::get('/carts',[CartController::class,'index'])->name('cart.index');
+
+        Route::get('/cart/edit/{cart}',[CartController::class,'edit'])->name('cart.edit');
+        Route::put('/cart/update/{cart}',[CartController::class,'update'])->name('cart.update');
+
 
     });
 });
