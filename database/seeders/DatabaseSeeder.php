@@ -6,6 +6,7 @@ namespace Database\Seeders;
 use App\Models\Coupon;
 use App\Models\FoodParty;
 use App\Models\Role;
+use App\Models\StatusOrder;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
@@ -47,6 +48,9 @@ class DatabaseSeeder extends Seeder
         Coupon::create(['code'=>'none','ends_at'=>date('Y/m/d'),'discount'=>0,'updated_at'=>date('Y/m/d')]);
         FoodParty::create(['name'=>'none']);
 
-
+        StatusOrder::create(['status'=>'PENDING']);
+        StatusOrder::create(['status'=>'PREPARATION']);
+        StatusOrder::create(['status'=>'SEND_TO_DESTINATION']);
+        StatusOrder::create(['status'=>'DELIVERED']);
     }
 }

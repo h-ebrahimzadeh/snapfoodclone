@@ -1,0 +1,27 @@
+<?php
+
+namespace App\Http\Controllers\Seller;
+
+use App\Http\Controllers\Controller;
+use App\Models\StatusOrder;
+use App\Models\User;
+use App\Notifications\CustomerNotification;
+use Illuminate\Support\Facades\Notification;
+
+class CustomerNotificationController extends Controller
+{
+    public function sendCustomerNotification(User $user, $statusId)
+    {
+        $statusOrder = StatusOrder::find($statusId)->first();
+
+
+        $customerData = [
+            'body' => 'you status order' . ' ' . $statusOrder->status,
+            'text' => 'you can show status in snapfood',
+            'url' => url('/'),
+            'thankyou' => 'thank you'
+        ];
+
+        Notification::send($user, new CustomerNotification($customerData));
+    }
+}
