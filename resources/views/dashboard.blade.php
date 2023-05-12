@@ -6,6 +6,7 @@
     </x-slot>
 
     <div class="py-12">
+        @can('create',\App\Models\Restaurant::class)
         <div class="w-1/2 mt-3 mx-auto text-3xl">
             <a href="{{route('seller.cart.index')}}" class="mx-2">
                 <button type="submit"
@@ -21,6 +22,6 @@
                 </button>
             </a>
         </div>
-
+        @endcan
     </div>
 </x-app-layout>

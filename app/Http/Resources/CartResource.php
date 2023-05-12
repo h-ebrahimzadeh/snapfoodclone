@@ -30,7 +30,8 @@ class CartResource extends JsonResource
             'carts:'=>[
                 'id'=>$this->id,
                 'restaurant'=>RestaurantResource::collection($this->foods),
-                'foods'=>FoodResource::collection($this->foods)
+                'foods'=>FoodResource::collection($this->foods),
+                'count'=>$this->count
             ]
         ];
     }

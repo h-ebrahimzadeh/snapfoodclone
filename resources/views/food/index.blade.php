@@ -6,6 +6,40 @@
     </x-slot>
     @php $i=1 @endphp
     <div class="py-12">
+        <div class="mb-6 w-1/2 mx-auto ">
+
+
+
+            <form action="{{route('seller.food.filter')}}"
+                  method="post">
+                @csrf
+
+                <label class="block mb-2 text-sm font-medium text-green-700 dark:text-green-500">food category</label>
+                <select name="food_category"
+                        id="@if(empty($errors->first('food_category'))) success @else error  @endif"
+                        class="@if(empty($errors->first('food_category'))) bg-green-50 border border-green-500 text-green-900 dark:text-green-400 placeholder-green-700 dark:placeholder-green-500 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-green-500
+                           @else bg-red-50 border border-red-500 text-red-900 placeholder-red-700 text-sm rounded-lg focus:ring-red-500 dark:bg-gray-700 focus:border-red-500 block w-full p-2.5 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500
+                           @endif">
+
+                    <option value="" disabled>select one ...</option>
+                    @foreach($food_categories as $food_category)
+                        <option value="{{$food_category->id}}">{{$food_category->name}}</option>
+                    @endforeach
+                </select>
+
+
+
+                <button type="submit"
+                        class="bg-transparent hover:bg-red-500 text-red-700 font-semibold hover:text-white py-2 px-4 m-1 border border-red-500 hover:border-transparent rounded">
+                    go
+                </button>
+
+
+            </form>
+
+
+
+        </div>
         <div class="relative overflow-x-auto w-full mx-md-2 ">
 
             <table class="w-3/4 mx-auto text-xl">

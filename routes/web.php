@@ -105,6 +105,8 @@ Route::group(['middleware'=>'auth'], function (){
         Route::get('/food/create',[FoodController::class,'create'])->name('food.create');
         Route::post('/food/store',[FoodController::class,'store'])->name('food.store');
         Route::get('/food/index',[FoodController::class,'index'])->name('food.index');
+        Route::post('/food/filter',[FoodController::class,'filter'])->name('food.filter');
+
 
 
         Route::get('/food/edit/{food}',[FoodController::class,'edit'])
@@ -136,6 +138,8 @@ Route::group(['middleware'=>'auth'], function (){
 
         Route::get('/cart/edit/{cart}',[CartController::class,'edit'])->name('cart.edit');
         Route::put('/cart/update/{cart}',[CartController::class,'update'])->name('cart.update');
+
+
 
 //        Route::get('/email',function (){
 //            \Illuminate\Support\Facades\Mail::to('aria.313@gmail.com')->send(new \App\Mail\SnapFoodMail());

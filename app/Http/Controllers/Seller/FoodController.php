@@ -16,8 +16,10 @@ class FoodController extends Controller
 {
     public function index()
     {
+        $food_categories=FoodCategory::all();
+
         $foods=Food::paginate(1);
-        return view('food.index',compact('foods'));
+        return view('food.index',compact('foods','food_categories'));
     }
     public function create()
     {
@@ -128,5 +130,13 @@ class FoodController extends Controller
         $storage->delete($food->image);
         return redirect()->route('seller.food.index');
 
+    }
+
+    public function filter(Request $request)
+    {
+
+        $food_categories= Food::where('food_categories_id',$request->food_category)->get();
+        $foods=Food::paginate(1);
+        return view('food.index',compact('foods','food_categories'));
     }
 }

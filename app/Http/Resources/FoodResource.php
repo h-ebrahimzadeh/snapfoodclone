@@ -18,7 +18,8 @@ class FoodResource extends JsonResource
             'name'=>$this->name,
             'materials'=>$this->materials,
             'image'=>$this->ProfileImageUrl,
-            'price'=>$this->price
+            'price'=>$this->price,
+
         ];
     }
 }

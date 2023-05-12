@@ -77,6 +77,8 @@ class CartController extends Controller
 //        return response()->noContent();
         return response()->json(['msg'=>'current cart updated successfully']);
     }
+
+
     public function show(Cart $cart)
     {
         return response()->json(['cart:', new CartResource($cart)]);
