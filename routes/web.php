@@ -137,6 +137,11 @@ Route::group(['middleware'=>'auth'], function (){
         Route::get('/cart/edit/{cart}',[CartController::class,'edit'])->name('cart.edit');
         Route::put('/cart/update/{cart}',[CartController::class,'update'])->name('cart.update');
 
+//        Route::get('/email',function (){
+//            \Illuminate\Support\Facades\Mail::to('aria.313@gmail.com')->send(new \App\Mail\SnapFoodMail());
+//            return new \App\Mail\SnapFoodMail();
+//        });
+
 
     });
 });
