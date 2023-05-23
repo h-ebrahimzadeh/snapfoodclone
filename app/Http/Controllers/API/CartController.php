@@ -19,39 +19,46 @@ use Illuminate\Support\Facades\Validator;
 
 class CartController extends Controller
 {
-    private array $cartItemTemp ;
 
     public function store(Request $request)
     {
+        $validator = Validator::make($request->all(), [
+            'food_id' => 'required',
+            'count' => ['required'],
 
-        $this->cartItemTemp[] = [
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json($validator->errors());
+        }
+
+
+        $cartItemTemp = [
             'food_id' => $request->food_id,
             'count' => $request->count,
             'user_id' => auth()->id()
         ];
 
-        if (! Cache::has('cartItem'))
-        {
-            Cache::put('cartItem', $this->cartItemTemp);
-
+        if (!Cache::has('cartItem')) {
+            Cache::put('cartItem', $cartItemTemp);
+            return response()->json(['cart created successfully.']);
         }
-        Cache::add('cartItem',$this->cartItemTemp);
+                    $cartItemTemp=Cache::get('cartItem');
+                    $cartItemTemp[] = [
+                        'food_id' => $request->food_id,
+                        'count' => $request->count,
+                        'user_id' => auth()->id()
+                    ];
+                    Cache::put('cartItem', $cartItemTemp);
 
 
 
-        dd(Cache::get('cartItem'));
+//        dd(json_encode(Cache::get('cartItem'),JSON_PRETTY_PRINT) );
 
 
-//        $validator = Validator::make($request->all(), [
-//            'food_id' => 'required',
-//            'count' => ['required'],
+
 //
-//        ]);
-//
-//        if ($validator->fails()) {
-//            return response()->json($validator->errors());
-//        }
-//
+
 //        $placeholder=[
 //            'food_id'=>$request->food_id,
 //            'count'=>$request->count,
@@ -61,19 +68,19 @@ class CartController extends Controller
 //
 //            $food = Cart::create($placeholder);
 
-        return response()->json(['cart created successfully.', new CartResource($food)]);
+        return response()->json(['cart created successfully.']);
     }
 
     public function index()
     {
 
-        $carts = Cart::all();
+        $cart = Cache::get('cartItem') ;
 
 
-        return response()->json(CartResource::collection($carts));
+        return response()->json($cart);
     }
 
-    public function update(Cart $cart, Request $request)
+    public function update(Cart $cart, Request $request,$id)
     {
         $validator = Validator::make($request->all(), [
             'food_id' => ['nullable'],
@@ -86,16 +93,28 @@ class CartController extends Controller
             return response()->json($validator->errors());
         }
 
-        $placeholder = [
+        $cartItems=json_decode(json_encode(Cache::get('cartItem')) ,true) ;
+
+        $cartItems[$id]=[
             'food_id' => $request->food_id,
             'count' => $request->count,
-            'user_id' => auth()->id(),
-            'status' => Cart::PENDING
-
+            'user_id' => auth()->id()
         ];
 
+        Cache::put('cartItem',$cartItems);
 
-        $cart->update($placeholder);
+
+
+//        $placeholder = [
+//            'food_id' => $request->food_id,
+//            'count' => $request->count,
+//            'user_id' => auth()->id(),
+//            'status' => Cart::PENDING
+//
+//        ];
+//
+//
+//        $cart->update($placeholder);
 //        return response()->noContent();
         return response()->json(['msg' => 'current cart updated successfully']);
     }
