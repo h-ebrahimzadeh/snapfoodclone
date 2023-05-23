@@ -14,32 +14,54 @@ use App\Models\Restaurant;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Validator;
 
 class CartController extends Controller
 {
+    private array $cartItemTemp ;
+
     public function store(Request $request)
     {
-        $validator = Validator::make($request->all(), [
-            'food_id' => 'required',
-            'count' => ['required'],
 
-        ]);
-
-        if ($validator->fails()) {
-            return response()->json($validator->errors());
-        }
-
-        $placeholder=[
-            'food_id'=>$request->food_id,
-            'count'=>$request->count,
-            'user_id'=>auth()->id(),
-            'status'=>Cart::PENDING
+        $this->cartItemTemp[] = [
+            'food_id' => $request->food_id,
+            'count' => $request->count,
+            'user_id' => auth()->id()
         ];
 
-            $food = Cart::create($placeholder);
+        if (! Cache::has('cartItem'))
+        {
+            Cache::put('cartItem', $this->cartItemTemp);
 
-            return response()->json(['cart created successfully.', new CartResource($food)]);
+        }
+        Cache::add('cartItem',$this->cartItemTemp);
+
+
+
+        dd(Cache::get('cartItem'));
+
+
+//        $validator = Validator::make($request->all(), [
+//            'food_id' => 'required',
+//            'count' => ['required'],
+//
+//        ]);
+//
+//        if ($validator->fails()) {
+//            return response()->json($validator->errors());
+//        }
+//
+//        $placeholder=[
+//            'food_id'=>$request->food_id,
+//            'count'=>$request->count,
+//            'user_id'=>auth()->id(),
+//            'status'=>Cart::PENDING
+//        ];
+//
+//            $food = Cart::create($placeholder);
+
+        return response()->json(['cart created successfully.', new CartResource($food)]);
     }
 
     public function index()
@@ -51,7 +73,7 @@ class CartController extends Controller
         return response()->json(CartResource::collection($carts));
     }
 
-    public function update(Cart $cart,Request $request)
+    public function update(Cart $cart, Request $request)
     {
         $validator = Validator::make($request->all(), [
             'food_id' => ['nullable'],
@@ -64,18 +86,18 @@ class CartController extends Controller
             return response()->json($validator->errors());
         }
 
-        $placeholder=[
-            'food_id'=>$request->food_id,
-            'count'=>$request->count,
-            'user_id'=>auth()->id(),
-            'status'=>Cart::PENDING
+        $placeholder = [
+            'food_id' => $request->food_id,
+            'count' => $request->count,
+            'user_id' => auth()->id(),
+            'status' => Cart::PENDING
 
         ];
 
 
         $cart->update($placeholder);
 //        return response()->noContent();
-        return response()->json(['msg'=>'current cart updated successfully']);
+        return response()->json(['msg' => 'current cart updated successfully']);
     }
 
 
