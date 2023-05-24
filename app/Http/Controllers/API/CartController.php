@@ -43,18 +43,16 @@ class CartController extends Controller
             Cache::put('cartItem', $cartItemTemp);
             return response()->json(['cart created successfully.']);
         }
-                    $cartItemTemp=Cache::get('cartItem');
-                    $cartItemTemp[] = [
-                        'food_id' => $request->food_id,
-                        'count' => $request->count,
-                        'user_id' => auth()->id()
-                    ];
-                    Cache::put('cartItem', $cartItemTemp);
-
+        $cartItemTemp = Cache::get('cartItem');
+        $cartItemTemp[] = [
+            'food_id' => $request->food_id,
+            'count' => $request->count,
+            'user_id' => auth()->id()
+        ];
+        Cache::put('cartItem', $cartItemTemp);
 
 
 //        dd(json_encode(Cache::get('cartItem'),JSON_PRETTY_PRINT) );
-
 
 
 //
@@ -74,13 +72,13 @@ class CartController extends Controller
     public function index()
     {
 
-        $cart = Cache::get('cartItem') ;
+        $cart = Cache::get('cartItem');
 
 
         return response()->json($cart);
     }
 
-    public function update(Cart $cart, Request $request,$id)
+    public function update(Cart $cart, Request $request, $id)
     {
         $validator = Validator::make($request->all(), [
             'food_id' => ['nullable'],
@@ -93,16 +91,15 @@ class CartController extends Controller
             return response()->json($validator->errors());
         }
 
-        $cartItems=json_decode(json_encode(Cache::get('cartItem')) ,true) ;
+        $cartItems = json_decode(json_encode(Cache::get('cartItem')), true);
 
-        $cartItems[$id]=[
+        $cartItems[$id] = [
             'food_id' => $request->food_id,
             'count' => $request->count,
             'user_id' => auth()->id()
         ];
 
-        Cache::put('cartItem',$cartItems);
-
+        Cache::put('cartItem', $cartItems);
 
 
 //        $placeholder = [
@@ -120,9 +117,23 @@ class CartController extends Controller
     }
 
 
-    public function show(Cart $cart)
-    {
-        return response()->json(['cart:', new CartResource($cart)]);
+//    public function show(Cart $cart)
+//    {
+//        return response()->json(['cart:', new CartResource($cart)]);
+//
+//    }
 
+    public function destroy($id)
+    {
+        $cartItems = json_decode(json_encode(Cache::get('cartItem')), true);
+//        dd(count($cartItems));
+        if (count($cartItems) <= $id) {
+            return response()->json(['msg' => 'id cart is incorrect']);
+        }
+        unset($cartItems[$id]);
+        $cartItems = array_values($cartItems);
+        Cache::put('cartItem', $cartItems);
+
+        return response()->json(['msg' => 'Delete id cart is successfully']);
     }
 }

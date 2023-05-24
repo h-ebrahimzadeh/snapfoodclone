@@ -48,6 +48,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/carts',[CartController::class,'index']);
     Route::put('/carts/update/{id}', [CartController::class,'update']);
     Route::get('/carts/{cart}',[CartController::class,'show']);
+    Route::delete('/carts/destroy/{id}',[CartController::class,'destroy']);
 
     //comment
     Route::post('/comments/add', [CommentController::class,'store']);
