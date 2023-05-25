@@ -22,13 +22,17 @@ class Cart extends Model
         'food_id',
         'count',
         'user_id',
-        'status'
+        'price',
+        'cart_number',
+
     ];
 
     public function foods()
     {
         return $this->hasMany(Food::class, 'id', 'food_id');
     }
+
+
 
 
 

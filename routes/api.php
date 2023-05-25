@@ -7,6 +7,7 @@ use App\Http\Controllers\API\CommentController;
 use App\Http\Controllers\Api\FoodController;
 use App\Http\Controllers\API\RestaurantController;
 use App\Http\Controllers\Api\UserController;
+use App\Http\Controllers\Seller\OrderController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -44,11 +45,20 @@ Route::middleware('auth:sanctum')->group(function () {
 
 
     //carts
-    Route::post('/carts/add', [CartController::class,'store']);
-    Route::get('/carts',[CartController::class,'index']);
-    Route::put('/carts/update/{id}', [CartController::class,'update']);
-    Route::get('/carts/{cart}',[CartController::class,'show']);
-    Route::delete('/carts/destroy/{id}',[CartController::class,'destroy']);
+    Route::post('/cart_items/add', [CartController::class,'store']);
+    Route::get('/cart_items',[CartController::class,'index']);
+    Route::put('/cart_items/update/{id}', [CartController::class,'update']);
+//    Route::get('/carts/{cart}',[CartController::class,'show']);
+    Route::delete('/cart_items/destroy/{id}',[CartController::class,'destroy']);
+    Route::get('/carts/confirm_cart',[CartController::class,'confirmCart']);
+    Route::delete('/carts/destroy_cart/{cart_number}',[CartController::class,'destroyCart']);
+    Route::get('/carts',[CartController::class,'cartIndex']);
+
+    //orders
+    Route::get('/orders/payment_order/{cart_number}/{restaurant_id}', [OrderController::class,'paymentOrder']);
+
+
+
 
     //comment
     Route::post('/comments/add', [CommentController::class,'store']);

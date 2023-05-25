@@ -20,6 +20,7 @@ use Illuminate\Support\Facades\Validator;
 class CartController extends Controller
 {
 
+
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -33,7 +34,7 @@ class CartController extends Controller
         }
 
 
-        $cartItemTemp = [
+        $cartItemTemp[] = [
             'food_id' => $request->food_id,
             'count' => $request->count,
             'user_id' => auth()->id()
@@ -135,5 +136,50 @@ class CartController extends Controller
         Cache::put('cartItem', $cartItems);
 
         return response()->json(['msg' => 'Delete id cart is successfully']);
+    }
+
+    public function confirmCart()
+    {
+
+        $cartItems = json_decode(json_encode(Cache::get('cartItem')), true);
+
+        $cart = Cart::all();
+        $cart_number = 1;
+        if (count($cart) > 0) {
+            $cart_number = Cart::max('cart_number') + 1;
+        }
+
+
+        foreach ($cartItems as $key => $cartItem) {
+
+            $food = Food::find($cartItem['food_id']);
+
+
+            $placeholder = [
+                'food_id' => $cartItem['food_id'],
+                'count' => $cartItem['count'],
+                'user_id' => $cartItem['user_id'],
+                'price' => $food->price * $cartItem['count'],
+                'cart_number' => $cart_number,
+
+            ];
+
+            Cart::create($placeholder);
+        }
+        Cache::forget('cartItem');
+        return response()->json(['confirm cart successfully.']);
+    }
+
+    public function destroyCart($cart_number)
+    {
+        Cart::where('cart_number',$cart_number)->delete();
+        return response()->json(['delete cart number successfully.']);
+
+    }
+
+    public function cartIndex()
+    {
+        $carts=Cart::all();
+        return $carts;
     }
 }

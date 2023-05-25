@@ -6,6 +6,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Seller\CartController;
 use App\Http\Controllers\Seller\CouponController;
 use App\Http\Controllers\Seller\FoodController;
+use App\Http\Controllers\Seller\OrderController;
 use App\Http\Controllers\Seller\RestaurantController;
 use Illuminate\Support\Facades\Route;
 
@@ -138,6 +139,9 @@ Route::group(['middleware'=>'auth'], function (){
 
         Route::get('/cart/edit/{cart}',[CartController::class,'edit'])->name('cart.edit');
         Route::put('/cart/update/{cart}',[CartController::class,'update'])->name('cart.update');
+
+        //order
+        Route::get('/orders',[OrderController::class,'index'])->name('order.index');
 
 
 
