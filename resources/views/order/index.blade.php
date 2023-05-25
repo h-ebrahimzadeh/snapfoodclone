@@ -53,7 +53,7 @@
                         <td class="px-6 py-3 text-center">{{$food->code}}</td>
                         <td class="px-6 py-3 text-center">{{$food->foodPartyName}}</td>
                         <td class="px-6 py-3 text-center">{{$food->restaurantName}}</td>
-                        <td class="px-6 py-3 text-center">{{$food->status}}</td>
+                        <td class="px-6 py-3 text-center">{{$food->status_order}}</td>
 
                         <td class="px-6 py-3 text-center">
                             <a href="{{route('seller.cart.edit',$food->idCart)}}" class="mx-2">
