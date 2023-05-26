@@ -5,18 +5,16 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\CommentResource;
 use App\Models\Comment;
-use App\Models\Order;
+use App\Models\Reply;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
-class CommentController extends Controller
+class ReplyController extends Controller
 {
-    public function store(Request $request,Order $order)
+    public function store(Request $request,Comment $comment)
     {
         $validator = Validator::make($request->all(), [
-            'score' => 'required',
             'content' => 'required',
-            'title' => 'required'
         ]);
 
         if ($validator->fails()) {
@@ -24,14 +22,12 @@ class CommentController extends Controller
         }
 
         $placeholder = [
-            'order_id' => $order->order_id,
-            'score' => $request->score,
+            'comment_id' => $comment->comment_id,
             'user_id' => auth()->id(),
             'content' => $request->get('content'),
-            'title' => $request->title
         ];
-        $comment = Comment::create($placeholder);
+        $reply = Reply::create($placeholder);
 
-        return response()->json(['comment created successfully.', new CommentResource($comment)]);
+        return response()->json(['Reply created successfully.', new ReplyResource($reply)]);
     }
 }

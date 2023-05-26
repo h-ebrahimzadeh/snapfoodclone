@@ -14,18 +14,17 @@ use Illuminate\Support\Facades\DB;
 
 class OrderController extends Controller
 {
-    public function update(Request $request, Cart $cart)
+    public function update(Request $request, Order $order)
     {
         $validated = $request->validate([
-            'status' => 'required'
+            'status_order' => 'required'
         ]);
+        $order->update($validated);
 
-        $cart->update($validated);
+        $user = User::find($order->user_id);
 
-        $user = User::find($cart->user_id);
-
-        (new CustomerNotificationController())->sendCustomerNotification($user, $validated);
-        return redirect()->route('seller.cart.index');
+        (new CustomerNotificationController())->sendCustomerNotification($user, $order);
+        return redirect()->route('seller.order.index');
 
 
     }
@@ -53,22 +52,32 @@ class OrderController extends Controller
 
     public function index()
     {
-//        $carts = Order::with('carts','restaurant')->get();
 //        $restaurant=Restaurant::where('user_id',auth()->id())->first();
 //        $foods = Food::where('restaurant_id',$restaurant->restaurant_id)->get();
 
+        $orders = Order::with('carts','restaurant','user')
+                ->whereNot('status_order', 'delivered')
+                ->get();
+        $totalPrice=0;
+        foreach ($orders as $order)
+        {
+            $totalPrice += $order->total_price;
+        }
+//        $carts= Cart::with('foods')->where('cart_number',$orders->cart_number->first());
+
+//dd($orders);
 
 //        dd(collect($carts));
-        $foods = DB::table('orders')
-            ->select('*', 'foods.name as foodName', 'users.name as username', 'food_parties.name as foodPartyName', 'restaurants.name as restaurantName', 'carts.id as idCart')
-            ->join('users', 'users.id', '=', 'orders.user_id')
-            ->join('carts', 'carts.cart_number', '=', 'orders.cart_number')
-            ->join('foods', 'foods.id', '=', 'carts.food_id')
-            ->join('restaurants', 'restaurants.id', '=', 'orders.restaurant_id')
-            ->join('coupons', 'coupons.id', '=', 'foods.coupon_id')
-            ->join('food_parties', 'food_parties.id', '=', 'foods.food_parties_id')
-            ->whereNot('status_order', Cart::DELIVERED)
-            ->get();
+//        $foods = DB::table('orders')
+//            ->select('*', 'foods.name as foodName', 'users.name as username', 'food_parties.name as foodPartyName', 'restaurants.name as restaurantName', 'carts.id as idCart')
+//            ->join('users', 'users.id', '=', 'orders.user_id')
+//            ->join('carts', 'carts.cart_number', '=', 'orders.cart_number')
+//            ->join('foods', 'foods.id', '=', 'carts.food_id')
+//            ->join('restaurants', 'restaurants.id', '=', 'orders.restaurant_id')
+//            ->join('coupons', 'coupons.id', '=', 'foods.coupon_id')
+//            ->join('food_parties', 'food_parties.id', '=', 'foods.food_parties_id')
+//            ->whereNot('status_order', Cart::DELIVERED)
+//            ->get();
 
 //        $totalPrice = 0;
 //
@@ -76,7 +85,11 @@ class OrderController extends Controller
 //
 //            $totalPrice += $food->total_price;
 //        }
-        dd($foods);
-        return view('order.index', compact('foods','totalPrice'));
+        return view('order.index', compact('orders','totalPrice'));
+    }
+
+    public function edit(Order $order)
+    {
+        return view('order.edit', compact('order'));
     }
 }

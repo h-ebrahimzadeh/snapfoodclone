@@ -8,7 +8,7 @@
     <div class="py-12">
         @can('create',\App\Models\Restaurant::class)
         <div class="w-1/2 mt-3 mx-auto text-3xl">
-            <a href="{{route('seller.cart.index')}}" class="mx-2">
+            <a href="{{route('seller.order.index')}}" class="mx-2">
                 <button type="submit"
                         class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 m-1 border border-blue-500 hover:border-transparent rounded">
                     foods order

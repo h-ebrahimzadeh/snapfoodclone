@@ -25,6 +25,11 @@ class Order extends Model
 
     public function restaurant()
     {
-        return $this->hasOne(Restaurant::class,'id','restaurant_id');
+        return $this->belongsTo(Restaurant::class,'restaurant_id','id');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class,'user_id','id');
     }
 }

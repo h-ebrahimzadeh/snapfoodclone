@@ -5,6 +5,7 @@ use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\API\CartController;
 use App\Http\Controllers\API\CommentController;
 use App\Http\Controllers\Api\FoodController;
+use App\Http\Controllers\API\ReplyController;
 use App\Http\Controllers\API\RestaurantController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Seller\OrderController;
@@ -61,7 +62,11 @@ Route::middleware('auth:sanctum')->group(function () {
 
 
     //comment
-    Route::post('/comments/add', [CommentController::class,'store']);
+    Route::post('/comments/add/{order}', [CommentController::class,'store']);
+
+    //reply
+    Route::post('/replies/add/{comment}', [ReplyController::class,'store']);
+
 
 
     //logout
