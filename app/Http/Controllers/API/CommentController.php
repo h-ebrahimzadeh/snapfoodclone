@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Validator;
 
 class CommentController extends Controller
 {
-    public function store(Request $request,Order $order)
+    public function store(Request $request, Order $order)
     {
         $validator = Validator::make($request->all(), [
             'score' => 'required',
@@ -24,7 +24,7 @@ class CommentController extends Controller
         }
 
         $placeholder = [
-            'order_id' => $order->order_id,
+            'order_id' => $order->id,
             'score' => $request->score,
             'user_id' => auth()->id(),
             'content' => $request->get('content'),

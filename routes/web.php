@@ -1,9 +1,11 @@
 <?php
 
+use App\Http\Controllers\admin\CommentController as CommentControllerAlias;
 use App\Http\Controllers\admin\FoodCategoryController;
 use App\Http\Controllers\admin\RestaurantCategoryController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Seller\CartController;
+use App\Http\Controllers\Seller\CommentController;
 use App\Http\Controllers\Seller\CouponController;
 use App\Http\Controllers\Seller\FoodController;
 use App\Http\Controllers\Seller\OrderController;
@@ -77,6 +79,12 @@ Route::group(['middleware'=>'auth'], function (){
 
             Route::delete('/food_categories/destroy/{foodCategory}',[FoodCategoryController::class,'destroy'])
             ->name('food_categories.destroy');
+
+            //comment
+        Route::get('/comments',[CommentControllerAlias::class,'index'])->name('comments.index');
+        Route::delete('/comments/destroy/{comment}',[CommentControllerAlias::class,'destroy'])->name('comment.destroy');
+
+
     });
 });
 
@@ -145,6 +153,12 @@ Route::group(['middleware'=>'auth'], function (){
         Route::get('/orders/edit/{order}',[OrderController::class,'edit'])->name('order.edit');
         Route::put('/orders/update/{order}',[OrderController::class,'update'])->name('order.update');
         Route::delete('/orders/destroy/{order}',[OrderController::class,'destroy'])->name('order.destroy');
+
+        //comment
+        Route::get('/comments/{order}',[CommentController::class,'index'])->name('comments.index');
+        Route::delete('/comments/destroy_request/{comment}',[CommentController::class,'destroyRequest'])->name('comment.destroy.request');
+
+
 
 
 

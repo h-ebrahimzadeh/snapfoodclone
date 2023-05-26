@@ -67,6 +67,8 @@ Route::middleware('auth:sanctum')->group(function () {
     //reply
     Route::post('/replies/add/{comment}', [ReplyController::class,'store']);
 
+    //near Restaurants
+    Route::get('/near_restaurants',[RestaurantController::class,'nearRestaurant']);
 
 
     //logout

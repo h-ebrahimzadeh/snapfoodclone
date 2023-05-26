@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Comment extends Model
 {
-    public $timestamps = false;
+    public $timestamps = true;
 
     use HasFactory;
 
@@ -16,8 +16,21 @@ class Comment extends Model
         'content',
         'score',
         'user_id',
-        'title'
+        'title',
+        'request_delete',
+        'order_id',
+        'timestamps'
 
     ];
+
+    public function replies()
+    {
+        return $this->hasMany(Reply::class,'comment_id','id');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class,'user_id','id');
+    }
 
 }

@@ -30,6 +30,9 @@
                         {{ __('food categories') }}
                     </x-nav-link>
 
+                    <x-nav-link  :href="route('admin.comments.index')">
+                        {{ __('comments') }}
+                    </x-nav-link>
                 @endif
 
                 @if(auth()->user()->role_id==\App\Models\Role::IS_SELLER)
@@ -62,6 +65,8 @@
                         <x-nav-link  :href="route('seller.coupon.index')">
                             {{ __('coupons') }}
                         </x-nav-link>
+
+
                 @endif
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">

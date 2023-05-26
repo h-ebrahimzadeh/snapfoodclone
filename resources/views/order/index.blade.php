@@ -84,6 +84,14 @@
                                 </form>
                             @endcan
                         </td>
+                        <td class="px-6 py-3 text-center">
+                                <a href="{{route('seller.comments.index',$order->id)}}" class="mx-2">
+                                    <button type="submit"
+                                            class="bg-transparent hover:bg-green-500 text-green-700 font-semibold hover:text-white py-2 px-4 m-1 border border-green-500 hover:border-transparent rounded">
+                                        comments & replies
+                                    </button>
+                                </a>
+                        </td>
                     </tr>
                 @endforeach
 

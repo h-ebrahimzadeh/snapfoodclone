@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\CommentResource;
+use App\Http\Resources\ReplyResource;
 use App\Models\Comment;
 use App\Models\Reply;
 use Illuminate\Http\Request;
@@ -22,7 +23,7 @@ class ReplyController extends Controller
         }
 
         $placeholder = [
-            'comment_id' => $comment->comment_id,
+            'comment_id' => $comment->id,
             'user_id' => auth()->id(),
             'content' => $request->get('content'),
         ];
