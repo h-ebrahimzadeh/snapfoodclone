@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\admin\BannerController;
 use App\Http\Controllers\admin\CommentController as CommentControllerAlias;
 use App\Http\Controllers\admin\FoodCategoryController;
 use App\Http\Controllers\admin\RestaurantCategoryController;
@@ -83,6 +84,10 @@ Route::group(['middleware'=>'auth'], function (){
             //comment
         Route::get('/comments',[CommentControllerAlias::class,'index'])->name('comments.index');
         Route::delete('/comments/destroy/{comment}',[CommentControllerAlias::class,'destroy'])->name('comment.destroy');
+
+        //banner
+        Route::get('banner/add',[BannerController::class,'create'])->name('banner.create');
+        Route::post('banner/store',[BannerController::class,'store'])->name('banner.store');
 
 
     });
