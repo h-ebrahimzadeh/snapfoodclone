@@ -12,27 +12,48 @@ use Illuminate\Support\Facades\Storage;
 
 class BannerController extends Controller
 {
+    public function store(BannerRequest $request)
+    {
+        $request->validated();
+        $storage = Storage::disk('snap-food');
+
+
+        $imageName = time() . '-' . 'bannerImg' . '.' . $request->image->extension();
+
+        $path_image = $storage->putFileAs("banners", $request->image, $imageName);
+
+        $banner = [
+            'image' => $path_image
+        ];
+
+        Banner::create($banner);
+        Session::flash('message', 'set is banner');
+        return back();
+
+
+    }
+
     public function create()
     {
         return view('banner.create');
     }
 
-    public function store(BannerRequest $request)
+    public function index()
     {
+        $banners=Banner::paginate(1);
 
-        $storage = Storage::disk('snap-food');
+        return view('banner.index',compact('banners'));
+    }
 
-        $path = date('Y/m/d');
-        $imageName = time().'-'.'bannerImg'.'.'.$request->image->extension();
+    public function update(Request $request,Banner $banner)
+    {
+        $banners=Banner::all();
 
-        $path_image=$storage->putFileAs("banners/$path",$request->image,$imageName);
+        foreach ($banners as $bannerItem)
+        {
+            $bannerItem->update(['selected'=>0]);
+        }
 
-
-        Banner::create($request->validated());
-//        return redirect()->route('seller.food.index');
-        Session::put('message','set is banner');
-//        return back();
-
-
+        $banner->update(['selected'=> 1]);
     }
 }

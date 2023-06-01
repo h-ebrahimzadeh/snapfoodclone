@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 
 class Banner extends Model
 {
@@ -11,7 +12,12 @@ class Banner extends Model
 
     public $timestamps = true;
     protected $fillable = [
-
-        'image'
+        'image',
+        'selected'
     ];
+
+    public function getBannerImageUrlAttribute()
+    {
+        return Storage::disk('snap-food')->url($this->image);
+    }
 }

@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Banner;
 use App\Models\Coupon;
 use App\Models\FoodParty;
 use App\Models\Role;
@@ -52,5 +53,7 @@ class DatabaseSeeder extends Seeder
         StatusOrder::create(['status'=>'PREPARATION']);
         StatusOrder::create(['status'=>'SEND_TO_DESTINATION']);
         StatusOrder::create(['status'=>'DELIVERED']);
+
+        Banner::create(['image'=>'banners/defaultImg.png','selected'=>1]);
     }
 }

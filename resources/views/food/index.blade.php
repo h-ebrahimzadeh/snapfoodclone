@@ -66,6 +66,7 @@
                 <tbody>
                 {{--    <a href="{{route('books.create')}}">sada</a>--}}
                 @foreach($foods as $food)
+                    <a href="{{$food->profile_image_url}}">imge</a>
                     <tr class="border-b even:bg-blue-200">
                         <td class="px-6 py-3 text-center">{{$i++}}</td>
                         <td class="px-6 py-3 text-center">{{$food->name}}</td>

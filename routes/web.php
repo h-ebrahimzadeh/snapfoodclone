@@ -81,13 +81,15 @@ Route::group(['middleware'=>'auth'], function (){
             Route::delete('/food_categories/destroy/{foodCategory}',[FoodCategoryController::class,'destroy'])
             ->name('food_categories.destroy');
 
-            //comment
+        //comment
         Route::get('/comments',[CommentControllerAlias::class,'index'])->name('comments.index');
         Route::delete('/comments/destroy/{comment}',[CommentControllerAlias::class,'destroy'])->name('comment.destroy');
 
         //banner
         Route::get('banner/add',[BannerController::class,'create'])->name('banner.create');
         Route::post('banner/store',[BannerController::class,'store'])->name('banner.store');
+        Route::get('banner',[BannerController::class,'index'])->name('banner.index');
+        Route::put('banner/update/{banner}',[BannerController::class,'update'])->name('banner.update');
 
 
     });
