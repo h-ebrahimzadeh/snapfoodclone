@@ -18,10 +18,10 @@
 
         <link href="https://static.neshan.org/sdk/leaflet/1.4.0/leaflet.css" rel="stylesheet" type="text/css">
         <script src="https://static.neshan.org/sdk/leaflet/1.4.0/leaflet.js" type="text/javascript">
-
+</script>
 
         <!-- Scripts -->
-        @vite(['resources/css/flowbite.css','resources/css/flowbite.js','resources/css/app.css', 'resources/js/app.js'])
+        @vite(['resources/css/app.css', 'resources/js/app.js'])
 
     </head>
     <body class="font-sans antialiased">
